@@ -1,0 +1,14 @@
+FooApps\HelloBundle\Entity\Friend:
+  type: entity
+  table: friend
+  id:
+    id:
+      type: integer
+      generator:
+        strategy: AUTO
+  fields:
+    name:
+      type: string
+      length: 50
+    created_at:
+      type: datetime
