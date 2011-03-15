@@ -22,6 +22,10 @@ class Friend
      */
     private $created_at;
 
+    public function __construct()
+    {
+        $this->created_at = new \DateTime('now');
+    }
 
     /**
      * Get id
