@@ -1,4 +1,4 @@
 {% extends "FooAppsHelloBundle::layout.html.twig" %}
 {% block content %}
-    Hello!
+    {% include 'FooAppsHelloBundle:Default:list.html.twig' with {'friends': friends} %}
 {% endblock %}

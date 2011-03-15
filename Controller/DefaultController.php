@@ -13,8 +13,16 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 class DefaultController extends Controller
 {
+    /*
+     * Shows all friends
+     */
     public function indexAction()
     {
-        return $this->render('FooAppsHelloBundle:Default:index.html.twig');
+        $em = $this->get('doctrine.orm.entity_manager');
+        $friends = $em->getRepository('FooApps\HelloBundle\Entity\Friend')->findAll();
+
+        return $this->render('FooAppsHelloBundle:Default:index.html.twig', array(
+            'friends' => $friends,
+        ));
     }
 }
