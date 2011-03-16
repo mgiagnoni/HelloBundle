@@ -1,0 +1,9 @@
+FooApps\HelloBundle\Entity\Friend:
+    properties:
+        name:
+            - NotBlank: ~
+            - Regex:
+                pattern: '/[^a-zA-Z\s]/'
+                match: false
+                message: 'Name must contain only letters/spaces'
+
