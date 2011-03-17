@@ -25,4 +25,19 @@ class DefaultController extends Controller
             'friends' => $friends,
         ));
     }
+
+    /**
+     * Says 'Hello!'
+     */
+    public function helloAction($name)
+    {
+        $em = $this->get('doctrine.orm.entity_manager');
+        $friend = $em->getRepository('FooApps\HelloBundle\Entity\Friend')
+            ->findOneBy(array('name' => $name));
+
+        return $this->render('FooAppsHelloBundle:Default:hello.html.twig', array(
+            'friend' => $friend,
+            'name' => $name
+        ));
+    }
 }

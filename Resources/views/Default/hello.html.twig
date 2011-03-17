@@ -1,0 +1,10 @@
+{% extends "FooAppsHelloBundle::layout.html.twig" %}
+{% block content %}
+    {% if (friend) %}
+        Hello {{ friend.name }}!
+    {% else %}
+        You don't have any friend named '{{ name }}'
+    {% endif %}
+    <hr />
+    <a href="{{ path('homepage') }}">Back to friends</a>
+{% endblock %}
