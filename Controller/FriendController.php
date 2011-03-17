@@ -11,6 +11,7 @@ namespace FooApps\HelloBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use FooApps\HelloBundle\Entity\Friend;
 use FooApps\HelloBundle\Form\FriendForm;
 
@@ -23,6 +24,18 @@ class FriendController extends Controller
     {
         return $this->render('FooAppsHelloBundle:Friend:new.html.twig', array(
             'form' => $this->getForm()
+        ));
+    }
+
+    /**
+     * Shows form to edit a friend
+     *
+     * @param integer $id
+     */
+    public function editAction($id)
+    {
+        return $this->render('FooAppsHelloBundle:Friend:edit.html.twig', array(
+            'form' => $this->getForm($id)
         ));
     }
 
@@ -41,9 +54,38 @@ class FriendController extends Controller
         ));
     }
 
-    protected function getForm()
+    /**
+     * Updates a friend
+     *
+     * @param integer $id
+     */
+    public function updateAction($id)
     {
-        $friend = new Friend();
+        $form = $this->getForm($id);
+
+        if ($this->processForm($form)) {
+            return new RedirectResponse($this->generateUrl('homepage'));
+        }
+
+        return $this->render('FooAppsHelloBundle:Friend:edit.html.twig', array(
+            'form' => $form
+        ));
+    }
+
+    protected function getForm($id = null)
+    {
+        if (null === $id) {
+            $friend = new Friend();
+        } else {
+            $em = $this->get('doctrine.orm.entity_manager');
+            $friend = $em->getRepository('FooApps\HelloBundle\Entity\Friend')
+                ->findOneBy(array('id' => $id));
+
+            if (!$friend) {
+                throw new NotFoundHttpException('Friend does not exist.');
+            }
+        }
+
         return FriendForm::create($this->get('form.context'), 'friend', array(
             'data' => $friend
         ));

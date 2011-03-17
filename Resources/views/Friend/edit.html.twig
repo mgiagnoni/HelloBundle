@@ -1,0 +1,10 @@
+{% extends 'FooAppsHelloBundle::layout.html.twig' %}
+
+{% block content %}
+<h2>Edit friend</h2>
+<form action="{{ path('update_friend', { 'id': form.getData.id }) }}" method="post">
+    {{ form_field(form) }}
+
+    <input type="submit" value="Save" />
+</form>
+{% endblock %}

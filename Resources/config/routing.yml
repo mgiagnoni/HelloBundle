@@ -16,3 +16,14 @@ create_friend:
     pattern: /new
     defaults: { _controller: FooAppsHelloBundle:Friend:create }
     requirements: { _method: post }
+
+edit_friend:
+    pattern: /edit/{id}
+    defaults: { _controller: FooAppsHelloBundle:Friend:edit }
+    requirements: { _method: get }
+
+update_friend:
+    pattern: /update/{id}
+    defaults: { _controller: FooAppsHelloBundle:Friend:update }
+    #method should be PUT but I can't get it working.
+    requirements: { _method: post }

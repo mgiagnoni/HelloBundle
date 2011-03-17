@@ -4,7 +4,8 @@
         <li>
             <a href="{{ path('hello', {'name': friend.name}) }}" title="Say Hello!">
                 {{ friend.name }}
-            </a>
+            </a> - 
+            <a href="{{ path('edit_friend', {'id': friend.id}) }}">Edit</a>
         </li>
     {% else %}
         <li>You have no friends!</li>
