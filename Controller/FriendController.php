@@ -46,7 +46,7 @@ class FriendController extends Controller
     {
         $form = $this->getForm();
         if ($this->processForm($form)) {
-            return new RedirectResponse($this->generateUrl('homepage'));
+            return new RedirectResponse($this->generateUrl('friends'));
         }
 
         return $this->render('FooAppsHelloBundle:Friend:new.html.twig', array(
@@ -64,7 +64,7 @@ class FriendController extends Controller
         $form = $this->getForm($id);
 
         if ($this->processForm($form)) {
-            return new RedirectResponse($this->generateUrl('homepage'));
+            return new RedirectResponse($this->generateUrl('friends'));
         }
 
         return $this->render('FooAppsHelloBundle:Friend:edit.html.twig', array(

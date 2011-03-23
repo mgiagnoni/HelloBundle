@@ -109,10 +109,10 @@ Play with it
 
 Visit the following address with your browser::
 
-    http://localhost/web/app_dev.php/hello_friend
+    http://localhost/Symfony/web/app_dev.php/hello_friend/friends
 
-If you have configured a virtual host replace 'localhost/web' with your virtual
-host name. Note that 'hello_friend' is the prefix used to import bundle routes in
-you application routing configuration.
+If you have configured a virtual host replace 'localhost/Symfony/web' with your
+virtual host name. Note that 'hello_friend' is the prefix used to import bundle
+routes in you application routing configuration.
 
 From the main page you can add/edit a friend and say 'Hello!'.

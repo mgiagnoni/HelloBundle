@@ -1,5 +1,5 @@
-homepage:
-    pattern:  /
+friends:
+    pattern:  /friends
     defaults: { _controller: FooAppsHelloBundle:Default:index }
 
 hello:
