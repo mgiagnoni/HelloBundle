@@ -104,6 +104,13 @@ From your project directory run::
 The first command can obviously be omitted if the database configured in
 'app/config/parameters.ini' already exists.
 
+Load fixtures
+-------------
+
+If you want to load the database with some sample data run::
+
+    $ php app/console doctrine:data:load --fixtures=src/FooApps/HelloBundle/DataFixtures/ORM
+
 Play with it
 ------------
 
@@ -115,4 +122,5 @@ If you have configured a virtual host replace 'localhost/Symfony/web' with your
 virtual host name. Note that 'hello_friend' is the prefix used to import bundle
 routes in you application routing configuration.
 
-From the main page you can add/edit a friend and say 'Hello!'.
+If you have loaded sample data you can click a name to say 'Hello!' or add/edit
+a friend.
