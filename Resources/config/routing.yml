@@ -1,29 +1,29 @@
 friends:
     pattern:  /friends
-    defaults: { _controller: FooAppsHelloBundle:Default:index }
+    defaults: { _controller: FooAppsHello:Default:index }
 
 hello:
     pattern:  /hello/{name}
-    defaults: { _controller: FooAppsHelloBundle:Default:hello }
+    defaults: { _controller: FooAppsHello:Default:hello }
     requirements: { _method: get }
 
 new_friend:
     pattern: /new
-    defaults: { _controller: FooAppsHelloBundle:Friend:new }
+    defaults: { _controller: FooAppsHello:Friend:new }
     requirements: { _method: get }
 
 create_friend:
     pattern: /new
-    defaults: { _controller: FooAppsHelloBundle:Friend:create }
+    defaults: { _controller: FooAppsHello:Friend:create }
     requirements: { _method: post }
 
 edit_friend:
     pattern: /edit/{id}
-    defaults: { _controller: FooAppsHelloBundle:Friend:edit }
+    defaults: { _controller: FooAppsHello:Friend:edit }
     requirements: { _method: get }
 
 update_friend:
     pattern: /update/{id}
-    defaults: { _controller: FooAppsHelloBundle:Friend:update }
+    defaults: { _controller: FooAppsHello:Friend:update }
     #method should be PUT but I can't get it working.
     requirements: { _method: post }

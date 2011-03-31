@@ -1,6 +1,6 @@
-{% extends "FooAppsHelloBundle::layout.html.twig" %}
+{% extends "FooAppsHello::layout.html.twig" %}
 {% block content %}
-    {% include 'FooAppsHelloBundle:Default:list.html.twig' with {'friends': friends} %}
+    {% include 'FooAppsHello:Default:list.html.twig' with {'friends': friends} %}
     <hr />
     <a href="{{ path('new_friend') }}">Add a friend</a>
 {% endblock %}

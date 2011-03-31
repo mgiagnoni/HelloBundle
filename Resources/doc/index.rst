@@ -13,7 +13,7 @@ followed all the best practices.
 Installation
 ============
 
-Bundle is tested with Symfony2 Standard Edition (PR7). Be sure to have properly
+Bundle is tested with Symfony2 Standard Edition (PR9). Be sure to have properly
 configured it with the web configurator or by manually editing the file
 'app/config/parameters.ini' (see instructions in the README file inside Symfony
 package).
@@ -78,7 +78,7 @@ Configure Doctrine mapping
                 default:
                     mappings:
                         # ...
-                        FooAppsHelloBundle: ~
+                        FooAppsHello: ~
 
 Configure routing
 -----------------
@@ -90,7 +90,7 @@ another one)::
     # app/config/routing.yml
 
     fooapps_hello:
-        resource: "@FooAppsHelloBundle/Resources/config/routing.yml"
+        resource: "@FooAppsHello/Resources/config/routing.yml"
         prefix: /hello_friend
 
 Initialize database
@@ -107,7 +107,27 @@ The first command can obviously be omitted if the database configured in
 Load fixtures
 -------------
 
-If you want to load the database with some sample data run::
+If you want to load the database with some sample data you will need a Doctrine
+extension not included in Symfony Standard Edition package. From your project
+folder run::
+
+    $ git clone git://github.com/doctrine/data-fixtures.git vendor/doctrine-data-fixtures
+
+Then include extension namespace in your autoloader::
+
+    // app/autoload.php
+
+    /* ... */
+    $loader->registerNamespaces(array(
+        'Symfony'            => array(__DIR__.'/../vendor/symfony/src', __DIR__.'/../vendor/bundles'),
+        'Sensio'             => __DIR__.'/../vendor/bundles',
+        'JMS'                => __DIR__.'/../vendor/bundles',
+        /* Add the following line */
+        'Doctrine\\Common\\DataFixtures'   => __DIR__.'/../vendor/doctrine-data-fixtures/lib',
+        /* ... */
+    ));
+
+Now you can load fixtures::
 
     $ php app/console doctrine:data:load --fixtures=src/FooApps/HelloBundle/DataFixtures/ORM
 
