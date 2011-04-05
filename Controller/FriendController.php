@@ -22,7 +22,7 @@ class FriendController extends Controller
      */
     public function newAction()
     {
-        return $this->render('FooAppsHello:Friend:new.html.twig', array(
+        return $this->render('FooAppsHelloBundle:Friend:new.html.twig', array(
             'form' => $this->getForm()
         ));
     }
@@ -34,7 +34,7 @@ class FriendController extends Controller
      */
     public function editAction($id)
     {
-        return $this->render('FooAppsHello:Friend:edit.html.twig', array(
+        return $this->render('FooAppsHelloBundle:Friend:edit.html.twig', array(
             'form' => $this->getForm($id)
         ));
     }
@@ -49,7 +49,7 @@ class FriendController extends Controller
             return new RedirectResponse($this->generateUrl('friends'));
         }
 
-        return $this->render('FooAppsHello:Friend:new.html.twig', array(
+        return $this->render('FooAppsHelloBundle:Friend:new.html.twig', array(
             'form' => $form
         ));
     }
@@ -67,7 +67,7 @@ class FriendController extends Controller
             return new RedirectResponse($this->generateUrl('friends'));
         }
 
-        return $this->render('FooAppsHello:Friend:edit.html.twig', array(
+        return $this->render('FooAppsHelloBundle:Friend:edit.html.twig', array(
             'form' => $form
         ));
     }

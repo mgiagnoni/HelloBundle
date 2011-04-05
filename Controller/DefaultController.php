@@ -21,7 +21,7 @@ class DefaultController extends Controller
         $em = $this->get('doctrine.orm.entity_manager');
         $friends = $em->getRepository('FooApps\HelloBundle\Entity\Friend')->findAll();
 
-        return $this->render('FooAppsHello:Default:index.html.twig', array(
+        return $this->render('FooAppsHelloBundle:Default:index.html.twig', array(
             'friends' => $friends,
         ));
     }
@@ -35,7 +35,7 @@ class DefaultController extends Controller
         $friend = $em->getRepository('FooApps\HelloBundle\Entity\Friend')
             ->findOneBy(array('name' => $name));
 
-        return $this->render('FooAppsHello:Default:hello.html.twig', array(
+        return $this->render('FooAppsHelloBundle:Default:hello.html.twig', array(
             'friend' => $friend,
             'name' => $name
         ));
