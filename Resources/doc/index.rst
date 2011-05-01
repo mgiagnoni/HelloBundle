@@ -111,8 +111,8 @@ Load fixtures
 -------------
 
 If you want to load the database with some sample data you will need a Doctrine
-extension not included in Symfony Standard Edition package. From your project
-folder run::
+extension and a bundle not included in Symfony Standard Edition package.
+From your project folder run::
 
     $ git clone git://github.com/doctrine/data-fixtures.git vendor/doctrine-data-fixtures
 
@@ -130,9 +130,25 @@ Then include extension namespace in your autoloader::
         /* ... */
     ));
 
+Install DoctrineFixturesBundle::
+
+    $ git clone git://github.com/symfony/DoctrineFixturesBundle.git vendor/bundles/Symfony/Bundle/DoctrineFixturesBundle
+
+Register bundle::
+
+    // app/AppKernel.php
+
+    public function registerBundles()
+    {
+        return array(
+            /* ... */
+            new Symfony\Bundle\DoctrineFixturesBundle\DoctrineFixturesBundle(),
+        );
+    }
+
 Now you can load fixtures::
 
-    $ php app/console doctrine:data:load --fixtures=src/FooApps/HelloBundle/DataFixtures/ORM
+    $ php app/console doctrine:fixtures:load --fixtures=src/FooApps/HelloBundle/DataFixtures/ORM
 
 Play with it
 ------------
