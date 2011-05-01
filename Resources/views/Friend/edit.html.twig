@@ -2,7 +2,7 @@
 
 {% block content %}
 <h2>Edit friend</h2>
-<form action="{{ path('update_friend', { 'id': friend.id }) }}" method="post">
+<form action="{{ path('edit_friend', { 'id': friend.id }) }}" method="post">
     {{ form_widget(form) }}
 
     <input type="submit" value="Save" />

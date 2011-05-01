@@ -18,37 +18,16 @@ use FooApps\HelloBundle\Form\FriendType;
 class FriendController extends Controller
 {
     /**
-     * Shows form to add a new friend
+     * Shows form to add a new friend / saves a new friend
      */
     public function newAction()
     {
-        return $this->render('FooAppsHelloBundle:Friend:new.html.twig', array(
-            'form' => $this->getForm()->createView()
-        ));
-    }
+        $form = $this->get('form.factory')->create(new FriendType());
 
-    /**
-     * Shows form to edit a friend
-     *
-     * @param integer $id
-     */
-    public function editAction($id)
-    {
-        $form = $this->getForm($id);
-        return $this->render('FooAppsHelloBundle:Friend:edit.html.twig', array(
-            'form' => $form->createView(),
-            'friend' => $form->getData()
-        ));
-    }
-
-    /**
-     * Saves a new friend
-     */
-    public function createAction()
-    {
-        $form = $this->getForm();
-        if ($this->processForm($form)) {
-            return new RedirectResponse($this->generateUrl('friends'));
+        if ('POST' === $this->get('request')->getMethod()) {
+            if ($this->processForm($form)) {
+                return new RedirectResponse($this->generateUrl('friends'));
+            }
         }
 
         return $this->render('FooAppsHelloBundle:Friend:new.html.twig', array(
@@ -57,40 +36,32 @@ class FriendController extends Controller
     }
 
     /**
-     * Updates a friend
+     * Shows form to edit a friend / updates a friend
      *
      * @param integer $id
      */
-    public function updateAction($id)
+    public function editAction($id)
     {
-        $form = $this->getForm($id);
+        $em = $this->get('doctrine.orm.entity_manager');
+        $friend = $em->getRepository('FooApps\HelloBundle\Entity\Friend')
+            ->findOneBy(array('id' => $id));
 
-        if ($this->processForm($form)) {
-            return new RedirectResponse($this->generateUrl('friends'));
+        if (!$friend) {
+            throw new NotFoundHttpException('Friend does not exist.');
+        }
+
+        $form = $this->get('form.factory')->create(new FriendType(), $friend);
+
+        if ('POST' === $this->get('request')->getMethod()) {
+            if ($this->processForm($form)) {
+                return new RedirectResponse($this->generateUrl('friends'));
+            }
         }
 
         return $this->render('FooAppsHelloBundle:Friend:edit.html.twig', array(
             'form' => $form->createView(),
-            'friend' => $form->getData()
+            'friend' => $friend
         ));
-    }
-
-    protected function getForm($id = null)
-    {
-        if (null === $id) {
-            $friend = new Friend();
-        } else {
-            $em = $this->get('doctrine.orm.entity_manager');
-            $friend = $em->getRepository('FooApps\HelloBundle\Entity\Friend')
-                ->findOneBy(array('id' => $id));
-
-            if (!$friend) {
-                throw new NotFoundHttpException('Friend does not exist.');
-            }
-        }
-        $form = $this->get('form.factory')->create(new FriendType(), $friend);
-
-        return $form;
     }
 
     protected function processForm($form)
