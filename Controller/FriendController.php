@@ -13,7 +13,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use FooApps\HelloBundle\Entity\Friend;
-use FooApps\HelloBundle\Form\FriendForm;
+use FooApps\HelloBundle\Form\FriendType;
 
 class FriendController extends Controller
 {
@@ -23,7 +23,7 @@ class FriendController extends Controller
     public function newAction()
     {
         return $this->render('FooAppsHelloBundle:Friend:new.html.twig', array(
-            'form' => $this->getForm()
+            'form' => $this->getForm()->createView()
         ));
     }
 
@@ -34,8 +34,10 @@ class FriendController extends Controller
      */
     public function editAction($id)
     {
+        $form = $this->getForm($id);
         return $this->render('FooAppsHelloBundle:Friend:edit.html.twig', array(
-            'form' => $this->getForm($id)
+            'form' => $form->createView(),
+            'friend' => $form->getData()
         ));
     }
 
@@ -50,7 +52,7 @@ class FriendController extends Controller
         }
 
         return $this->render('FooAppsHelloBundle:Friend:new.html.twig', array(
-            'form' => $form
+            'form' => $form->createView()
         ));
     }
 
@@ -68,7 +70,8 @@ class FriendController extends Controller
         }
 
         return $this->render('FooAppsHelloBundle:Friend:edit.html.twig', array(
-            'form' => $form
+            'form' => $form->createView(),
+            'friend' => $form->getData()
         ));
     }
 
@@ -85,15 +88,14 @@ class FriendController extends Controller
                 throw new NotFoundHttpException('Friend does not exist.');
             }
         }
+        $form = $this->get('form.factory')->create(new FriendType(), $friend);
 
-        return FriendForm::create($this->get('form.context'), 'friend', array(
-            'data' => $friend
-        ));
+        return $form;
     }
 
     protected function processForm($form)
     {
-        $form->bind($this->get('request'));
+        $form->bindRequest($this->get('request'));
         if ($form->isValid()) {
             $em = $this->get('doctrine.orm.entity_manager');
             $friend = $form->getData();
