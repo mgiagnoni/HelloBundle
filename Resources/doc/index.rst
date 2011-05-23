@@ -13,7 +13,7 @@ followed all the best practices.
 Installation
 ============
 
-Bundle is tested with Symfony2 Standard Edition (Beta 1). Be sure to have properly
+Bundle is tested with Symfony2 Standard Edition (Beta 2). Be sure to have properly
 configured it with the web configurator or by manually editing the file
 'app/config/parameters.ini' (see instructions in the README file inside Symfony
 package).
